@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Auxillary from '../../../hoc/Auxillary';
+import Auxillary from '../../../hoc/Auxillary/Auxillary';
 import Button from '../../UI/Button/Button';
 
 class OrderSummary extends Component {
-
+    //This could be a funcational component, doesn't have to be a class
     componentWillUpdate() {
         console.log('Order Summary Will Update');
     }
