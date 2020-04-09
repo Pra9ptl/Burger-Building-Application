@@ -4,7 +4,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #EDBB99;
+    background-color: #784212;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -15,4 +15,8 @@
 
 .ToolBar nav {
     height: 100%;
+}
+
+.Logo {
+    height: 80%;
 }
