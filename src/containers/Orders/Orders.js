@@ -7,7 +7,7 @@ class Orders extends Component {
       return (
         <div>
           <Order />
-          <Orders />
+          <Order />
         </div>
       )
     };
