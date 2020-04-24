@@ -80,6 +80,7 @@ class ContactData extends Component {
                 elementType: 'select',
                 elementConfig: {
                     options: [
+                        { value: '0', displayValue: '--Select a Option--' },
                         { value: 'fastest', displayValue: 'Fastest' },
                         { value: 'cheapest', displayValue: 'Cheapest' },
                     ]
