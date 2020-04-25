@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import Button from '../../../components/UI/Button/Button';
 import classes from './ContactData.css';
-// eslint-disable-next-line
 import Axios from '../../../axios-orders';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 import { connect } from 'react-redux';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import * as actions from '../../../store/actions/index';
 
 class ContactData extends Component {
     state = {
@@ -118,8 +119,6 @@ class ContactData extends Component {
 
     orderHandler = (event) => {
         event.preventDefault();
-        this.setState({ loading: true });
-
         const formData = {};
         for (let formElementIdentifire in this.state.orderForm) {
             formData[formElementIdentifire] = this.state.orderForm[formElementIdentifire].value;
@@ -198,4 +197,8 @@ const mapStateToProps = state => {
     };
 }
 
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = dispatch => {
+    onOrderBurger: (orderData) => dispatch (actions.purchaseBurgerStart(orderData))
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, Axios));
