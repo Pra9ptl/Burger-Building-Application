@@ -1,4 +1,5 @@
 import * as actionTypes from './actionTypes';
+import Axios from '../../axios-orders';
 
 export const addIngredient = (name) => {
     return {
@@ -13,3 +14,31 @@ export const removeIngredient = (name) => {
         ingredientName: name
     }
 }
+
+// sync action creator
+export const setIngredients = (ingredients) => {
+    return {
+        type: actionTypes.SET_INGREDIENTS,
+        ingredients: ingredients
+    };
+};
+
+export const fetchIngredientsFailed = () => {
+    return {
+        type: actionTypes.FETCH_INGREDIENTS_FAILED
+    }
+}
+
+// async action creator
+export const initIngredients = () => {
+    return dispatch => {
+        Axios.get('https://my-burger-app-67421.firebaseio.com/ingredients.json')
+            .then(response => {
+                console.log(response.data);
+                dispatch(setIngredients(response.data));
+            })
+            .catch(error => {
+                dispatch(fetchIngredientsFailed());
+            });
+    };
+};
