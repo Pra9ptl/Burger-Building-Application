@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from '../../../components/UI/Button/Button';
 import classes from './ContactData.css';
+// eslint-disable-next-line
 import Axios from '../../../axios-orders';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
@@ -124,19 +125,12 @@ class ContactData extends Component {
             formData[formElementIdentifire] = this.state.orderForm[formElementIdentifire].value;
         }
 
+        // eslint-disable-next-line
         const order = {
             ingredients: this.props.ings,
             price: this.props.price,
             orderData: formData
         };
-        Axios.post('/orders.json', order)
-            .then(response => {
-                this.setState({ loading: false });
-                this.props.history.push('/');
-            })
-            .catch(error => {
-                this.setState({ loading: false });
-            });
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
