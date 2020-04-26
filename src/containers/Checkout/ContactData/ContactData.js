@@ -92,13 +92,12 @@ class ContactData extends Component {
                 valid: true
             },
         },
-        formIsValid: false,
-        loading: false
+        formIsValid: false
     }
 
     checkValidity(value, rules) {
         let isValid = true;
-        if(!rules) {
+        if (!rules) {
             return true;
         }
 
@@ -124,12 +123,13 @@ class ContactData extends Component {
             formData[formElementIdentifire] = this.state.orderForm[formElementIdentifire].value;
         }
 
-        // eslint-disable-next-line
         const order = {
             ingredients: this.props.ings,
             price: this.props.price,
             orderData: formData
         };
+
+        this.props.onOrderBurger(order);
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
@@ -178,7 +178,7 @@ class ContactData extends Component {
                 <Button btnType="Success" disabled={!this.state.formIsValid} >Order</Button>
             </form>
         );
-        if (this.state.loading) {
+        if (this.props.loading) {
             form = <Spinner />;
         }
         return (
@@ -193,12 +193,15 @@ class ContactData extends Component {
 const mapStateToProps = state => {
     return {
         ings: state.ingredients,
-        price: state.totalPrice
+        price: state.totalPrice,
+        loading: state.loading
     };
 }
 
 const mapDispatchToProps = dispatch => {
-    onOrderBurger: (orderData) => dispatch (actions.purchaseBurgerStart(orderData))
+    return {
+        onOrderBurger: (orderData) => dispatch(actions.purchaseBurger(orderData))
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, Axios));
