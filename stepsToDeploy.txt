@@ -1,0 +1,4 @@
+1. Check and adjust posible basepath.
+2. Build and optimize project --> npm run build.
+3. Server must serve index.html file even if its in 404 pages. 
+4. Upload build artifacts to server.
