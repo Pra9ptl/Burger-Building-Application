@@ -11,7 +11,7 @@ import * as actions from '../../store/actions/index';
 import Axios from '../../axios-orders';
 import { connect } from 'react-redux';
 
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
 
     constructor(props) {
         super(props);
