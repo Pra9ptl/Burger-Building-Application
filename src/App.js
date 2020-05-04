@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import Layout from './hoc/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
@@ -19,43 +19,42 @@ const asyncAuth = asyncComponent(() => {
   return import('./containers/Auth/Auth');
 })
 
-class App extends Component {
+const app = (props) => {
 
-  componentDidMount() {
-    this.props.onTryAutoSignup();
-  }
+  // instead componentDidMount()
+  // runs only once due to its dependencies when mounted for first time
+  useEffect(() => {
+    props.onTryAutoSignup();
+  }, []);
 
-  render() {
+  let routes = (
+    <Switch>
+      <Route path="/auth" exact component={asyncAuth} />
+      <Route path="/" exact component={BurgerBuilder} />
+      <Redirect to="/" />
+    </Switch>
+  );
 
-    let routes = (
+  if (props.isAuthenticated) {
+    routes = (
       <Switch>
         <Route path="/auth" exact component={asyncAuth} />
+        <Route path="/checkout" component={asyncCheckout} />
+        <Route path="/orders" exact component={asyncOrders} />
+        <Route path="/logout" exact component={Logout} />
         <Route path="/" exact component={BurgerBuilder} />
         <Redirect to="/" />
       </Switch>
     );
-
-    if (this.props.isAuthenticated) {
-      routes = (
-        <Switch>
-          <Route path="/auth" exact component={asyncAuth} />
-          <Route path="/checkout" component={asyncCheckout} />
-          <Route path="/orders" exact component={asyncOrders} />
-          <Route path="/logout" exact component={Logout} />
-          <Route path="/" exact component={BurgerBuilder} />
-          <Redirect to="/" />
-        </Switch>
-      );
-    }
-
-    return (
-      <div>
-        <Layout>
-          {routes}
-        </Layout>
-      </div>
-    );
   }
+
+  return (
+    <div>
+      <Layout>
+        {routes}
+      </Layout>
+    </div>
+  );
 }
 
 const mapStateToProps = state => {
@@ -70,4 +69,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(app));
