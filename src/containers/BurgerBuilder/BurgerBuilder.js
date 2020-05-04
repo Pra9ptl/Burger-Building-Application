@@ -15,10 +15,11 @@ const burgerBuilder = props => {
 
     const [purchasing, setPurchasing] = useState(false);
 
+    const { onInitIngredients } = props;
     useEffect(() => {
         //initializing ingredients sate in the store from the server
-        props.onInitIngredients();
-    }, []);
+        onInitIngredients();
+    }, [onInitIngredients]);
 
     const updatePurchaseState = (ingredients) => {
         const sum = Object.keys(ingredients)

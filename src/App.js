@@ -20,11 +20,14 @@ const Auth = React.lazy(() => {
 
 const app = (props) => {
 
+  //props object destructuring
+  const { onTryAutoSignup } = props;
+
   // instead componentDidMount()
   // runs only once due to its dependencies when mounted for first time
   useEffect(() => {
-    props.onTryAutoSignup();
-  }, []);
+    onTryAutoSignup();
+  }, [onTryAutoSignup]);
 
   let routes = (
     <Switch>
